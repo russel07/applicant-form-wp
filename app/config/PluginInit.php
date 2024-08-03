@@ -26,9 +26,11 @@ class PluginInit {
 
         $this->activate_me();
 
-        add_shortcode('applicant_form', function ($args) {
-            return (new PluginClient())->renderPortal();
+        add_shortcode( 'applicant_form', function () {
+            return ( new PluginClient() )->renderPortal();
         });
+
+        add_action('wp', [ PluginClient::class, 'applicant_form_submission_handle']);
 
     }
 

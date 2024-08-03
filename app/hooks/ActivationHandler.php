@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class ActivationHandler
 {
-    public function handle(){
+    public function handle() {
         $this->applicant_form_create_table();
     }
 
