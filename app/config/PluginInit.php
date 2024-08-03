@@ -26,6 +26,10 @@ class PluginInit {
 
         $this->activate_me();
 
+        add_shortcode('applicant_form', function ($args) {
+            return (new PluginClient())->renderPortal();
+        });
+
     }
 
     public function activate_me() {
