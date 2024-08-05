@@ -10,6 +10,7 @@ class PluginAdmin
 {
     public function __construct() {
         add_action('admin_menu', [$this, 'applicant_form_admin_menu']);
+        add_action('wp_dashboard_setup', [$this, 'apfwp_register_dashboard_widget']);
     }
 
     public function applicant_form_admin_menu() {
@@ -24,6 +25,14 @@ class PluginAdmin
         );
     }
 
+    public function apfwp_register_dashboard_widget() {
+        wp_add_dashboard_widget(
+            'apfwp_dashboard_widget',
+            'Latest Applicant Submissions',
+            array(&$this, 'apfwp_dashboard_widget_display')
+        );
+    }
+
     public function enqueueScripts(){
         wp_enqueue_style( 'apfwp_css', APPLICANT_FORM_WP_PLUGIN_URL.'assets/css/style.css' );
     }
@@ -35,7 +44,11 @@ class PluginAdmin
 
     }
 
-    public static function load_data( $orderby, $order, $search_query = '') {
+    public function apfwp_dashboard_widget_display() {
+        require_once APPLICANT_FORM_WP_PLUGIN_DIR . '/app/views/dashboard-widget.php';
+    }
+
+    public static function load_data( $orderby, $order, $search_query = '', $limit = '') {
         global $wpdb;
         $table_name = $wpdb->prefix . 'applicant_submissions';
 
@@ -61,6 +74,10 @@ class PluginAdmin
             );
         } else {
             $query = "SELECT * FROM $table_name ORDER BY $orderby $order";
+
+            if( $limit ) {
+                $query .= " LIMIT $limit";
+            }
         }
 
         return $wpdb->get_results($query);
