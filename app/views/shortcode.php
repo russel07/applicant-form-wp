@@ -1,3 +1,8 @@
+<?php
+    if ( ! defined( 'ABSPATH' ) ) {
+        exit;
+    }
+?>
 <div class="form-wrapper">
     <form id="applicant-form" method="post" enctype="multipart/form-data">
         <div class="field-wrapper field-row">
