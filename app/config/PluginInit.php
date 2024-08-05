@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 use Rus\ApFWP\Hooks\ActivationHandler;
+use Rus\ApFWP\Config\PluginAdmin;
 
 class PluginInit {
     private static $instance;
@@ -31,6 +32,8 @@ class PluginInit {
         });
 
         add_action('wp', [ PluginClient::class, 'applicant_form_submission_handle']);
+
+        new PluginAdmin();
 
     }
 
