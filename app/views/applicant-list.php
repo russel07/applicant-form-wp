@@ -3,10 +3,11 @@
         exit;
     }
 
+    $search_query = isset($_POST['search_query']) ? sanitize_text_field($_POST['search_query']) : '';
     $orderby = isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : 'submission_date';
     $order = isset($_GET['order']) && $_GET['order'] === 'asc' ? 'asc' : 'desc';
 
-    $results = Rus\ApFWP\Config\PluginAdmin::load_data( $orderby, $order );
+    $results = Rus\ApFWP\Config\PluginAdmin::load_data( $orderby, $order, $search_query );
 
     $results = is_array( $results ) && ! empty( $results ) ? $results : [];
     $message = get_transient( "applicant_submission_deleted" );
@@ -20,6 +21,11 @@
 <?php endif;?>
 <div class="wrap">
     <h1 class="wp-heading-inline">Applicant Submissions</h1>
+
+    <form method="post" action="">
+        <input type="search" name="search_query" value="<?php echo esc_attr($search_query); ?>" />
+        <input type="submit" value="Search" class="button" />
+    </form>
 
     <table class="wp-list-table widefat fixed striped">
         <thead>

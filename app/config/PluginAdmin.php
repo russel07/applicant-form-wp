@@ -35,7 +35,7 @@ class PluginAdmin
 
     }
 
-    public static function load_data( $orderby, $order ) {
+    public static function load_data( $orderby, $order, $search_query = '') {
         global $wpdb;
         $table_name = $wpdb->prefix . 'applicant_submissions';
 
@@ -53,7 +53,15 @@ class PluginAdmin
             }
         }
 
-        $query = "SELECT * FROM $table_name ORDER BY $orderby $order";
+        if( $search_query ) {
+            $query = $wpdb->prepare( "SELECT * FROM $table_name WHERE first_name LIKE %s OR last_name LIKE %s OR email_address LIKE %s",
+                '%' . $wpdb->esc_like( $search_query ) . '%',
+                '%' . $wpdb->esc_like( $search_query ) . '%',
+                '%' . $wpdb->esc_like( $search_query ) . '%'
+            );
+        } else {
+            $query = "SELECT * FROM $table_name ORDER BY $orderby $order";
+        }
 
         return $wpdb->get_results($query);
 
