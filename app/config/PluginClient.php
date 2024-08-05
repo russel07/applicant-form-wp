@@ -2,6 +2,10 @@
 
 namespace Rus\ApFWP\Config;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 class PluginClient
 {
     public function renderPortal(){

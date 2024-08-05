@@ -3,7 +3,10 @@
         exit;
     }
 
-    $results = Rus\ApFWP\Config\PluginAdmin::load_data();
+    $orderby = isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : 'submission_date';
+    $order = isset($_GET['order']) && $_GET['order'] === 'asc' ? 'asc' : 'desc';
+
+    $results = Rus\ApFWP\Config\PluginAdmin::load_data( $orderby, $order );
 
     $results = is_array( $results ) && ! empty( $results ) ? $results : [];
     $message = get_transient( "applicant_submission_deleted" );
@@ -20,15 +23,18 @@
 
     <table class="wp-list-table widefat fixed striped">
         <thead>
-            <tr>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
+            <tr> 
+                <?php 
+                    $sortOrder = $order === 'asc' ? 'desc' : 'asc';
+                ?>
+                <th scope="col"><a href="<?php echo admin_url("admin.php?page=applicant-submissions&orderby=first_name&order=$sortOrder"); ?>">First Name</a></th>
+                <th scope="col"><a href="<?php echo admin_url("admin.php?page=applicant-submissions&orderby=last_name&order=$sortOrder"); ?>">Last Name</a></th>
                 <th scope="col">Present Address</th>
-                <th scope="col">Email Address</th>
+                <th scope="col"><a href="<?php echo admin_url("admin.php?page=applicant-submissions&orderby=email_address&order=$sortOrder"); ?>">Email Address</a></th>
                 <th scope="col">Mobile No</th>
                 <th scope="col">Post Name</th>
                 <th scope="col">CV</th>
-                <th scope="col">Submission Date</th>
+                <th scope="col"><a href="<?php echo admin_url("admin.php?page=applicant-submissions&orderby=submission_date&order=$sortOrder"); ?>">Submission Date</a></th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>

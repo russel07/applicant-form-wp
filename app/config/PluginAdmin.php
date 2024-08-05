@@ -35,18 +35,25 @@ class PluginAdmin
 
     }
 
-    public static function load_data() {
+    public static function load_data( $orderby, $order ) {
         global $wpdb;
         $table_name = $wpdb->prefix . 'applicant_submissions';
 
         // Handle deletion
-        if (isset($_GET['delete'])) {
-            $delete_id = intval($_GET['delete']);
-            $wpdb->delete($table_name, array('id' => $delete_id));
-            set_transient('applicant_submission_deleted', 'Record deleted successfully!', 30);
+        if ( isset( $_GET['delete'] ) ) {
+            $delete_id = intval( $_GET['delete'] );
+            $table_name = $wpdb->prefix . 'applicant_submissions';
+
+            $record = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM $table_name WHERE id = %d", $delete_id ) );
+
+            if ($record) {
+                // ID exists, proceed with deletion
+                $wpdb->delete( $table_name, array( 'id' => $delete_id ) );
+                set_transient( 'applicant_submission_deleted', 'Record deleted successfully!', 30 );
+            }
         }
 
-        $query = "SELECT * FROM $table_name ORDER BY submission_date desc";
+        $query = "SELECT * FROM $table_name ORDER BY $orderby $order";
 
         return $wpdb->get_results($query);
 
