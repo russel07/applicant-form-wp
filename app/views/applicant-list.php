@@ -3,9 +3,9 @@
         exit;
     }
 
-    $search_query = isset($_POST['search_query']) ? sanitize_text_field($_POST['search_query']) : '';
-    $orderby = isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : 'submission_date';
-    $order = isset($_GET['order']) && $_GET['order'] === 'asc' ? 'asc' : 'desc';
+    $search_query   = isset( $_POST['search_query'] ) ? sanitize_text_field( $_POST['search_query'] ) : '';
+    $orderby        = isset( $_GET['orderby'] ) ? sanitize_text_field( $_GET['orderby'] ) : 'submission_date';
+    $order          = isset( $_GET['order'] ) && $_GET['order'] === 'asc' ? 'asc' : 'desc';
 
     $results = Rus\ApFWP\Config\PluginAdmin::load_data( $orderby, $order, $search_query );
 
@@ -15,10 +15,13 @@
     if ( $message ):
         delete_transient( "applicant_submission_deleted" );
 ?>
+
 <div class="notice notice-success is-dismissible">
     <p><?php echo esc_html( $message );?></p>
 </div>
+
 <?php endif;?>
+
 <div class="wrap">
     <h1 class="wp-heading-inline">Applicant Submissions</h1>
 

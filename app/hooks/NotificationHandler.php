@@ -9,11 +9,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 class NotificationHandler
 {
     public function __construct() {
-        add_action('apfwp/action_after_store_application_data', [$this, 'send_form_submission_email']);
+        add_action( 'apfwp/action_after_store_application_data', [ $this, 'send_form_submission_email'] );
     }
 
     public function send_form_submission_email( $form_data ) {
-        if ( ! isset($form_data['email_address'] ) ) {
+        if ( ! isset( $form_data['email_address'] ) ) {
             return;
         }
 
