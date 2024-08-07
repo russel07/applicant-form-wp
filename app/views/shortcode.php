@@ -2,7 +2,17 @@
     if ( ! defined( 'ABSPATH' ) ) {
         exit;
     }
+
+    $message = get_transient( "form_submitted_success" );
+
+    if ( $message ):
+        delete_transient( "form_submitted_success" );
 ?>
+<div class="notice notice-success">
+    <p><?php echo esc_html( $message );?></p>
+</div>
+<?php endif;?>
+
 <div class="form-wrapper">
     <form id="applicant-form" method="post" enctype="multipart/form-data">
         <div class="field-wrapper field-row">

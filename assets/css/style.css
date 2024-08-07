@@ -68,3 +68,20 @@
     background-color: #47a1ef;
     color: white;
 }
+
+.notice.notice-success {
+    border-left: 4px solid #46b450;
+    background-color: #f6ffed;
+    padding: 15px 15px 15px 12px;
+    margin: 15px 0;
+    border-radius: 3px;
+    position: relative;
+}
+
+.notice.notice-success p {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #000;
+}
