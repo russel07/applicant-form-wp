@@ -79,6 +79,8 @@ class PluginClient
             // Trigger action hook to send email
             do_action('apfwp/action_after_store_application_data', $stored_data);
 
+            set_transient( 'form_submitted_success', 'Application form submitted successfully', 30 );
+
         }
     }
 }

@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class PluginAdmin
 {
     public function __construct() {
+        add_action('admin_enqueue_scripts', [$this,'apfwp_enqueue_admin_styles']);
         add_action('admin_menu', [$this, 'applicant_form_admin_menu']);
         add_action('wp_dashboard_setup', [$this, 'apfwp_register_dashboard_widget']);
     }
@@ -33,12 +34,11 @@ class PluginAdmin
         );
     }
 
-    public function enqueueScripts(){
-        wp_enqueue_style( 'apfwp_css', APPLICANT_FORM_WP_PLUGIN_URL.'assets/css/style.css' );
+    public function apfwp_enqueue_admin_styles(){
+        wp_enqueue_style( 'apfwp_css', APPLICANT_FORM_WP_PLUGIN_URL.'assets/css/admin.css' );
     }
 
     public function applicant_form_admin_page() {
-        $this->enqueueScripts();
 
         require_once APPLICANT_FORM_WP_PLUGIN_DIR . '/app/views/applicant-list.php';
 

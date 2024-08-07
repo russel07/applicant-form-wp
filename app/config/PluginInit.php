@@ -34,7 +34,7 @@ class PluginInit {
 
         new NotificationHandler();
 
-        add_action('wp', [ PluginClient::class, 'applicant_form_submission_handle']);
+        add_action( 'wp', [ PluginClient::class, 'applicant_form_submission_handle'] );
 
         new PluginAdmin();
 
