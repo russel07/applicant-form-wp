@@ -61,6 +61,7 @@
     display: inline-block;
     font-size: 14px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .btn-primary {

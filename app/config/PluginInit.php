@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 
 use Rus\ApFWP\Hooks\ActivationHandler;
+use Rus\ApFWP\Hooks\NotificationHandler;
 use Rus\ApFWP\Config\PluginAdmin;
 
 class PluginInit {
@@ -30,6 +31,8 @@ class PluginInit {
         add_shortcode( 'applicant_form', function () {
             return ( new PluginClient() )->renderPortal();
         });
+
+        new NotificationHandler();
 
         add_action('wp', [ PluginClient::class, 'applicant_form_submission_handle']);
 
